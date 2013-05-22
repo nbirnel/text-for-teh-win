@@ -29,7 +29,7 @@ make_tmpfile()
     ifExist, %tmpfile%
         FileDelete %tmpfile%         ;FIXME check for failure
     FileAppend, , %tmpfile%          ;Make an empty file
-    FileSetAttrib, -R, %tmpfile%
+    FileSetAttrib, -R, %tmpfile%     ;Make it not read-only
     FileAppend, %Clipboard%, %tmpfile%
 
     return %tmpfile%
