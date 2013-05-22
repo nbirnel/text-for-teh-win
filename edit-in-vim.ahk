@@ -47,6 +47,7 @@ read_tmpfile(tmpfile)
     WinGetTitle, target_name, ahk_id %target_id%
 
     ClipSaved := ClipboardAll
+    Clipboard = 
 
     SendInput ^a^c
     
