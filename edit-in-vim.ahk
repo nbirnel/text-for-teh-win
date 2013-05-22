@@ -37,24 +37,15 @@ edit_tmpfile(tmpfile)
 
 read_tmpfile(tmpfile)
 {
-    clipboard = 
-    FileRead, clipboard, %tmpfile%
+    Clipboard = 
+    FileRead, Clipboard, %tmpfile%
 }
-
-save_clip()
-{
-}
-
-restore_clip()
-{
-}
-
 
 #v::
     target_id := WinExist("A")
     WinGetTitle, target_name, ahk_id %target_id%
 
-    save_clip()
+    ClipSaved := ClipboardAll
 
     SendInput ^a^c
     
@@ -69,7 +60,8 @@ restore_clip()
     }
     else MsgBox Failed to edit %tmpfile%, leaving %target_name% unchanged.
 
-    restore_clip()
+    Clipboard := ClipSaved
+    ClipSaved = 
 
 return
 
