@@ -14,14 +14,6 @@ IfNotInString, a, D
     ExitApp 1
 }
 
-edit_tmpfile(tmpfile) 
-{
-    global editor 
-    global edit_flags
-    RunWait %editor% %edit_flags% %tmpfile%
-    return ErrorLevel
-}
-
 make_tmpfile()
 {
     global tmpdir
@@ -33,6 +25,20 @@ make_tmpfile()
     FileAppend, %Clipboard%, %tmpfile%
 
     return %tmpfile%
+}
+
+edit_tmpfile(tmpfile) 
+{
+    global editor 
+    global edit_flags
+    RunWait %editor% %edit_flags% %tmpfile%
+    return ErrorLevel
+}
+
+read_tmpfile(tmpfile)
+{
+    clipboard = 
+    FileRead, clipboard, %tmpfile%
 }
 
 save_clip()
@@ -56,6 +62,7 @@ restore_clip()
 
     If edit_tmpfile(tmpfile) == 0
     {
+        read_tmpfile(tmpfile)
         WinActivate ahk_id %target_id%
         Sleep 10
         SendInput ^a^v
