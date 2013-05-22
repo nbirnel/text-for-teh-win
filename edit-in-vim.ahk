@@ -22,10 +22,16 @@ edit_tmpfile(tmpfile)
     return ErrorLevel
 }
 
-get_tmpfile()
+make_tmpfile()
 {
     global tmpdir
     tmpfile = %tmpdir%\%A_Now%.txt
+    ifExist, %tmpfile%
+        FileDelete %tmpfile%         ;FIXME check for failure
+    FileAppend, , %tmpfile%          ;Make an empty file
+    FileSetAttrib, -R, %tmpfile%
+    FileAppend, %Clipboard%, %tmpfile%
+
     return %tmpfile%
 }
 
@@ -46,7 +52,7 @@ restore_clip()
 
     SendInput ^a^c
     
-    tmpfile := get_tmpfile()
+    tmpfile := make_tmpfile()
 
     If edit_tmpfile(tmpfile) == 0
     {
