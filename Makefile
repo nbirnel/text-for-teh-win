@@ -1,4 +1,4 @@
-SCRIPT = edit-in-vim.ahk
+SCRIPT = txt-ftw.ahk
 
 test :: 
 	cygstart ${SCRIPT}
