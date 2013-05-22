@@ -17,7 +17,8 @@ IfNotInString, a, D
 make_tmpfile()
 {
     global tmpdir
-    tmpfile = %tmpdir%\%A_Now%.txt
+    FormatTime, fmt_time, , yyyy-MM-dd-HH-mm-ss
+    tmpfile = %tmpdir%\%fmt_time%.txt
     ifExist, %tmpfile%
         FileDelete %tmpfile%         ;FIXME check for failure
     FileAppend, , %tmpfile%          ;Make an empty file
