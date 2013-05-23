@@ -5,6 +5,7 @@ edit_flags =
 EnvGet, userprofile, USERPROFILE
 cfgdir = %userprofile%\.config\text_for_teh_win
 tmpdir = %cfgdir%\tmp
+cfg = %cfgdir%\config.ini
 
 ifNotExist, %tmpdir%
     FileCreateDir %tmpdir%
@@ -14,6 +15,23 @@ IfNotInString, a, D
 {
     MsgBox %tmpdir% is not a directory.
     ExitApp 1
+}
+
+If FileExist(cfg)
+{
+    Loop, read, %cfg%
+    {
+        If (SubStr(A_LoopReadLine, 1, 7) = "editor=") 
+        {
+            val := SubStr(A_LoopReadLine, 8)
+            editor = %val%
+        }
+        If (SubStr(A_LoopReadLine, 1, 11) = "edit_short=") 
+        {
+            val := SubStr(A_LoopReadLine, 12)
+            edit_short = %val%
+        }
+    }
 }
 
 make_tmpfile()
@@ -44,6 +62,13 @@ read_tmpfile(tmpfile)
     FileRead, Clipboard, %tmpfile%
 }
 
+fail(err, msg)
+{
+    global
+    MsgBox, Error: %err% `nTempfile: %tmp%`nTarget: %target_title%`n%msg%
+    ExitApp %err%
+}
+
 #v::
     target_wid := WinExist("A")
     WinGetTitle, target_title, ahk_id %target_wid%
@@ -65,13 +90,16 @@ read_tmpfile(tmpfile)
     {
         read_tmpfile(tmpfile)
         WinActivate ahk_id %target_wid%
-        Sleep 10
+        WinWaitActive, ahk_id %target_wid%, ,3
+        if ErrorLevel
+            fail(1, "Couldn't activate target.")
+        Sleep 100
         SendInput ^a
         Sleep 100
         SendInput ^v
         Sleep 100
     }
-    else MsgBox Failed to edit %tmpfile%, leaving %target_title% unchanged.
+    else fail(2, "Failed to edit tempfile, leaving target unchanged.")
 
     Clipboard := ClipSaved
     ClipSaved = 
