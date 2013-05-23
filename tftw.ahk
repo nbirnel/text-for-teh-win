@@ -14,7 +14,7 @@ If FileExist(cfg)
     Loop, read, %cfg%
     {
         parse_ini("editor", A_LoopReadLine)
-        parse_ini("edit_short") 
+        parse_ini("edit_short", A_LoopReadLine) 
     }
 }
 
@@ -69,6 +69,10 @@ make_tmpfile()
     return %tmpfile%
 }
 
+editor_config()
+{
+}
+
 edit_tmpfile(tmpfile) 
 {
     global editor 
@@ -91,6 +95,23 @@ fail(err, msg)
     ExitApp %err%
 }
 
+get_text()
+{
+    SendInput ^a
+    Sleep 100
+    SendInput ^c
+    Sleep 100
+}
+
+send_text()
+{
+    Sleep 100
+    SendInput ^a
+    Sleep 100
+    SendInput ^v
+    Sleep 100
+}
+
 #v::
     target_wid := WinExist("A")
     WinGetTitle, target_title, ahk_id %target_wid%
@@ -101,12 +122,10 @@ fail(err, msg)
     ClipSaved := ClipboardAll
     Clipboard = 
 
-    SendInput ^a
-    Sleep 100
-    SendInput ^c
-    Sleep 100
-    
+    get_text()
     tmpfile := make_tmpfile()
+
+    editor_config()
 
     If edit_tmpfile(tmpfile) == 0
     {
@@ -115,11 +134,7 @@ fail(err, msg)
         WinWaitActive, ahk_id %target_wid%, ,3
         if ErrorLevel
             fail(1, "Couldn't activate target.")
-        Sleep 100
-        SendInput ^a
-        Sleep 100
-        SendInput ^v
-        Sleep 100
+        send_text()
     }
     else fail(2, "Failed to edit tempfile, leaving target unchanged.")
 
