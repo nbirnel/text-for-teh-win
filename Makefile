@@ -1,4 +1,8 @@
-SCRIPT = tftw.ahk
+PROG = tftw
+CC = "$$PROGRAMFILES/Autohotkey/Compiler/Ahk2Exe.exe"
+
+${PROG}.exe :: ${PROG}.ahk
+	${CC} /in $< 
 
 test :: 
-	cygstart ${SCRIPT}
+	cygstart ${PROG}.ahk
