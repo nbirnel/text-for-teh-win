@@ -1,4 +1,4 @@
-SCRIPT = txt-ftw.ahk
+SCRIPT = tftw.ahk
 
 test :: 
 	cygstart ${SCRIPT}
