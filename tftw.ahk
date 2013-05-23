@@ -7,15 +7,7 @@ cfgdir = %userprofile%\.config\text_for_teh_win
 tmpdir = %cfgdir%\tmp
 cfg = %cfgdir%\config.ini
 
-ifNotExist, %tmpdir%
-    FileCreateDir %tmpdir%
-
-FileGetAttrib, a, %tmpdir%
-IfNotInString, a, D
-{
-    MsgBox %tmpdir% is not a directory.
-    ExitApp 1
-}
+make_dir(tmpdir)
 
 If FileExist(cfg)
 {
@@ -31,6 +23,28 @@ If FileExist(cfg)
             val := SubStr(A_LoopReadLine, 12)
             edit_short = %val%
         }
+    }
+}
+
+editdir = %cfgdir%\editors\%edit_short%
+edit_classdir = %editdir%\class
+edit_procdir = %editdir%\proc
+edit_titledir = %editdir%\title
+make_dir(editdir)
+make_dir(edit_classdir)
+make_dir(edit_procdir)
+make_dir(edit_titledir)
+
+make_dir(dir)
+{
+    ifNotExist, %dir%
+        FileCreateDir %dir%
+
+    FileGetAttrib, a, %dir%
+    IfNotInString, a, D
+    {
+        errmsg =  %dir% is not a directory.
+        fail(3, errmsg)
     }
 }
 
@@ -64,8 +78,9 @@ read_tmpfile(tmpfile)
 
 fail(err, msg)
 {
-    global
-    MsgBox, Error: %err% `nTempfile: %tmp%`nTarget: %target_title%`n%msg%
+    global tmpfile
+    global target_title
+    MsgBox, Error: %err% `nTempfile: %tmpfile%`nTarget: %target_title%`n%msg%
     ExitApp %err%
 }
 
