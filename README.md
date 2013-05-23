@@ -11,3 +11,6 @@ Hit Windows-v to edit the current panel in your chosen editor. Hit Windows-z to 
 
 This currently has basic funcionality.
 There is no installer, no editor customization, and no post-hooks.
+
+If you use emacs, be sure to use emacs.exe, not runemacs.exe. The editor needs
+to not return an exit status until you have quit.
