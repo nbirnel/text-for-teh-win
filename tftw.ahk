@@ -49,7 +49,10 @@ read_tmpfile(tmpfile)
     ClipSaved := ClipboardAll
     Clipboard = 
 
-    SendInput ^a^c
+    SendInput ^a
+    Sleep 100
+    SendInput ^c
+    Sleep 100
     
     tmpfile := make_tmpfile()
 
@@ -58,7 +61,10 @@ read_tmpfile(tmpfile)
         read_tmpfile(tmpfile)
         WinActivate ahk_id %target_id%
         Sleep 10
-        SendInput ^a^v
+        SendInput ^a
+        Sleep 100
+        SendInput ^v
+        Sleep 100
     }
     else MsgBox Failed to edit %tmpfile%, leaving %target_name% unchanged.
 
