@@ -1,8 +1,10 @@
 editor = %A_ProgramFiles%\Vim\vim73\gvim.exe
+edit_short = gvim
 edit_flags = 
 
 EnvGet, userprofile, USERPROFILE
-tmpdir = %userprofile%\.config\text_for_teh_win
+cfgdir = %userprofile%\.config\text_for_teh_win
+tmpdir = %cfgdir%\tmp
 
 ifNotExist, %tmpdir%
     FileCreateDir %tmpdir%
