@@ -13,16 +13,8 @@ If FileExist(cfg)
 {
     Loop, read, %cfg%
     {
-        If (SubStr(A_LoopReadLine, 1, 7) = "editor=") 
-        {
-            val := SubStr(A_LoopReadLine, 8)
-            editor = %val%
-        }
-        If (SubStr(A_LoopReadLine, 1, 11) = "edit_short=") 
-        {
-            val := SubStr(A_LoopReadLine, 12)
-            edit_short = %val%
-        }
+        parse_ini("editor", A_LoopReadLine)
+        parse_ini("edit_short") 
     }
 }
 
@@ -34,6 +26,22 @@ make_dir(editdir)
 make_dir(edit_classdir)
 make_dir(edit_procdir)
 make_dir(edit_titledir)
+
+parse_ini(var, line)
+{
+    global
+    lenvar := StrLen(var)
+    i_eq  := lenvar+1
+    i_val := i_eq+1
+    vareq = %var%=
+
+    If (SubStr(line, 1, i_eq) = vareq) 
+    {
+        val := SubStr(line, i_val)
+        %var% = %val%
+    }
+}
+
 
 make_dir(dir)
 {
