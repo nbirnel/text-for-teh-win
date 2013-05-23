@@ -18,14 +18,17 @@ If FileExist(cfg)
     }
 }
 
-editdir = %cfgdir%\editors\%edit_short%
-edit_classdir = %editdir%\class
-edit_procdir = %editdir%\proc
-edit_titledir = %editdir%\title
-make_dir(editdir)
-make_dir(edit_classdir)
-make_dir(edit_procdir)
-make_dir(edit_titledir)
+edit_dir = %cfgdir%\editors\%edit_short%
+edit_dir_class = %edit_dir%\class
+edit_dir_proc = %edit_dir%\proc
+edit_dir_title = %edit_dir%\title
+sourceflagf = %edit_dir%\sourceflag.ini
+make_dir(edit_dir)
+make_dir(edit_dir_class)
+make_dir(edit_dir_proc)
+make_dir(edit_dir_title)
+
+global_editor_config()
 
 parse_ini(var, line)
 {
@@ -69,8 +72,46 @@ make_tmpfile()
     return %tmpfile%
 }
 
+global_editor_config()
+{
+    global
+    Loop, read, %sourceflagf%
+    {
+        parse_ini("sourceflag", A_LoopReadLine)
+        parse_ini("extension", A_LoopReadLine)
+    }
+}
+
+load_edit_configs(type)
+{
+    global edit_flags
+    global sourceflag
+    global extension
+    global edit_dir
+    global class
+    global title
+    global proc
+    dotext := "." . extension
+    type_dir = %edit_dir%\%type%\*
+    Loop, %type_dir%
+    {
+        basename := RegExReplace(A_LoopFileName, dotext)
+        IfInString, %type%, %basename%
+        {
+            If A_LoopFileExt = %extension%
+            {
+                edit_flags = %edit_flags% %sourceflag% %A_LoopFileLongPath%
+            }
+        }
+    }
+}
+
 editor_config()
 {
+    global
+    load_edit_configs("class")
+    load_edit_configs("proc")
+    load_edit_configs("title")
 }
 
 edit_tmpfile(tmpfile) 
@@ -90,8 +131,8 @@ read_tmpfile(tmpfile)
 fail(err, msg)
 {
     global tmpfile
-    global target_title
-    MsgBox, Error: %err% `nTempfile: %tmpfile%`nTarget: %target_title%`n%msg%
+    global title
+    MsgBox, Error: %err% `nTempfile: %tmpfile%`nTarget: %title%`n%msg%
     ExitApp %err%
 }
 
@@ -114,10 +155,10 @@ send_text()
 
 #v::
     target_wid := WinExist("A")
-    WinGetTitle, target_title, ahk_id %target_wid%
-    WinGet, target_proc, ProcessName, ahk_id %target_wid%
-    WinGet, target_pid, ID, ahk_id %target_wid%
-    WinGetClass, target_class, ahk_id %target_wid%
+    WinGetTitle, title, ahk_id %target_wid%
+    WinGet, proc, ProcessName, ahk_id %target_wid%
+    WinGet, pid, ID, ahk_id %target_wid%
+    WinGetClass, class, ahk_id %target_wid%
 
     ClipSaved := ClipboardAll
     Clipboard = 
