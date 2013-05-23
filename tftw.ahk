@@ -42,7 +42,6 @@ parse_ini(var, line)
     }
 }
 
-
 make_dir(dir)
 {
     ifNotExist, %dir%
