@@ -43,8 +43,11 @@ read_tmpfile(tmpfile)
 }
 
 #v::
-    target_id := WinExist("A")
-    WinGetTitle, target_name, ahk_id %target_id%
+    target_wid := WinExist("A")
+    WinGetTitle, target_title, ahk_id %target_wid%
+    WinGet, target_proc, ProcessName, ahk_id %target_wid%
+    WinGet, target_pid, ID, ahk_id %target_wid%
+    WinGetClass, target_class, ahk_id %target_wid%
 
     ClipSaved := ClipboardAll
     Clipboard = 
@@ -59,14 +62,14 @@ read_tmpfile(tmpfile)
     If edit_tmpfile(tmpfile) == 0
     {
         read_tmpfile(tmpfile)
-        WinActivate ahk_id %target_id%
+        WinActivate ahk_id %target_wid%
         Sleep 10
         SendInput ^a
         Sleep 100
         SendInput ^v
         Sleep 100
     }
-    else MsgBox Failed to edit %tmpfile%, leaving %target_name% unchanged.
+    else MsgBox Failed to edit %tmpfile%, leaving %target_title% unchanged.
 
     Clipboard := ClipSaved
     ClipSaved = 
