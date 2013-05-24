@@ -2,8 +2,8 @@ editor = %A_ProgramFiles%\Vim\vim73\gvim.exe
 edit_short = gvim
 edit_flags = 
 
-EnvGet, userprofile, USERPROFILE
-cfgdir = %userprofile%\.config\text_for_teh_win
+#include mkdirs.ahk
+
 tmpdir = %cfgdir%\tmp
 cfg = %cfgdir%\config.ini
 
@@ -42,19 +42,6 @@ parse_ini(var, line)
     {
         val := SubStr(line, i_val)
         %var% = %val%
-    }
-}
-
-make_dir(dir)
-{
-    ifNotExist, %dir%
-        FileCreateDir %dir%
-
-    FileGetAttrib, a, %dir%
-    IfNotInString, a, D
-    {
-        errmsg =  %dir% is not a directory.
-        fail(3, errmsg)
     }
 }
 
