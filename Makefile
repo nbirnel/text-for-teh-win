@@ -1,8 +1,13 @@
 PROG = tftw
-CC = "$$PROGRAMFILES/Autohotkey/Compiler/Ahk2Exe.exe"
 
-${PROG}.exe :: source/${PROG}.ahk
-	cd source && ${CC} /in $< && mv $@ ./
+${PROG}.exe :: 
+	cd source && make
 
 test :: 
-	cygstart source/${PROG}.ahk
+	cygstart ${PROG}.exe
+
+clean ::
+	rm -f ${PROG}.exe
+
+.PHONY :: clean test
+
