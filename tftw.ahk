@@ -98,7 +98,7 @@ load_edit_configs(type)
         basename := RegExReplace(A_LoopFileName, dotext)
         IfInString, %type%, %basename%
             If A_LoopFileExt = %extension%
-                edit_flags = %edit_flags% %sourceflag% %A_LoopFileLongPath%
+                edit_flags = %edit_flags% %sourceflag% `"%A_LoopFileLongPath%`"
     }
 }
 
