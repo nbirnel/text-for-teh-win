@@ -10,6 +10,7 @@ ${PROG}.ico ::
 
 clean ::
 	rm -f ${PROG}.exe ${PROG}.ico
+	cd images/ && make clean
 
 .PHONY :: clean
 

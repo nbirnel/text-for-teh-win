@@ -8,6 +8,7 @@ test ::
 
 clean ::
 	rm -f ${PROG}.exe
+	cd source/ && make clean
 
 .PHONY :: clean test
 
