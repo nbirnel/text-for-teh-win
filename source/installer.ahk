@@ -19,5 +19,6 @@ if ErrorLevel
     die(4, "Failed to install")
 
 ;put up dumb "all done!" message unlesss started with silent flag
+MsgBox, Installed config files in %cfgdir%,`nand executable at %dest%\ttfw.exe
 
 
