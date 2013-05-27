@@ -130,14 +130,14 @@ select_all()
 get_text()
 {
     select_all()
-    SendInput ^c
+    SendInput ^{INSERT}
     Sleep 100
 }
 
 send_text()
 {
     select_all()
-    SendInput ^v
+    SendInput +{INSERT}
     Sleep 100
 }
 
