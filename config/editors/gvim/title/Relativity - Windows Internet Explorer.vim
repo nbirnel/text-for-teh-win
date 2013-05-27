@@ -1,10 +1,3 @@
-" \t yields date and time, and puts us back in append mode
-nnoremap <leader>t :normal! a<c-r>=<SID>DateTime()<cr><cr>a
-
-function! <SID>DateTime() 
-    return strftime("%Y-%m-%d %H:%M")
-endfunction
-
 ab edisc Discovering in ecap <esc>\t
 ab eproc Processing in ecap <esc>\t
 ab eexp Exporting from ecap <esc>\t
