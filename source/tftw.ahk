@@ -111,10 +111,19 @@ read_tmpfile(tmpfile)
     FileRead, Clipboard, %tmpfile%
 }
 
+select_line()
+{
+    Sleep 100
+    SendInput {HOME}
+    SendInput +{END}
+    Sleep 100
+}
+
 select_all()
 {
     Sleep 100
-    SendInput ^a
+    SendInput ^{HOME}
+    SendInput ^+{END}
     Sleep 100
 }
 
