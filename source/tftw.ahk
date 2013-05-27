@@ -2,7 +2,7 @@ editor = %A_ProgramFiles%\Vim\vim73\gvim.exe
 edit_short = gvim
 edit_flags = 
 
-#include mkdirs.ahk
+#include functions.ahk
 
 tmpdir = %cfgdir%\tmp
 cfg = %cfgdir%\config.ini
@@ -109,14 +109,6 @@ read_tmpfile(tmpfile)
 {
     Clipboard = 
     FileRead, Clipboard, %tmpfile%
-}
-
-fail(err, msg)
-{
-    global tmpfile
-    global title
-    MsgBox, Error: %err% `nTempfile: %tmpfile%`nTarget: %title%`n%msg%
-    ExitApp %err%
 }
 
 get_text()

@@ -1,4 +1,4 @@
-#include mkdirs.ahk
+#include functions.ahk
 
 ;get command line flags (silent)
 
