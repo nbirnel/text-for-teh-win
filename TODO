@@ -1,3 +1,4 @@
+---------------------------
 factor out select, copy, paste to a library to be shared with xmouse.
 
 select(winid, select_t, class_t, proc_t, title_t, cut_p)
@@ -34,3 +35,7 @@ formula bar: works fine.
 
 word:
 works OK.
+---------------------------
+Add in cancel functionality - we copied out of a window incorrectly,
+such as a whole excel worksheet, and wish to abort.
+
