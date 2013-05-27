@@ -11,7 +11,7 @@ Hit Windows-v to edit the current panel in your chosen editor.
 Hit Windows-z to exit tftw.
 
 This currently has basic funcionality.
-There is no customization for different window types,
+There is no copy / paste customization for different window types,
 and the installer is quiet and primitive.
 
 Customize editor behavior for different target window types by putting editor
