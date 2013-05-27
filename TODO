@@ -1,0 +1,36 @@
+factor out select, copy, paste to a library to be shared with xmouse.
+
+select(winid, select_t, class_t, proc_t, title_t, cut_p)
+where select_t is a,ae,ab,l,le,lb,w,we,wb
+all, all to end, all to begin
+line, line to end, line to begin
+word, word to end, word to begin
+cut_p is whether to cut or not
+
+copy(winid, class_t, proc_t, title_t, cut_p)
+
+paste(winid, class_t, proc_t, title_t, totop_p)
+top_p is whether to move cursor to beginning or not
+top_p not guaranteed to work correctly with line selections
+        
+
+cmd:
+copy_sel=SendInput {ENTER}
+paste=SendInput !{SPACE}ep
+or double right click
+select_all=SendInput !{SPACE}es
+select_line=
+copy_sel=SendInput {ENTER}
+paste=SendInput !{SPACE}ep
+select_word=doubleclick
+totop=SendInput {HOME}
+toend=SendInput {END}
+
+excel
+cell focused: c-a selects whole worksheet
+cell in edit mode: current select method works to copy out,
+and paste back in.
+formula bar: works fine.
+
+word:
+works OK.
