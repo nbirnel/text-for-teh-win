@@ -139,6 +139,8 @@ send_text()
     select_all()
     SendInput +{INSERT}
     Sleep 100
+    SendInput ^{HOME}
+    ; FIXME the ^ here and in select all should be factored out as 'linewise'
 }
 
 #v::
