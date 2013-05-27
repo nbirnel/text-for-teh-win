@@ -111,19 +111,23 @@ read_tmpfile(tmpfile)
     FileRead, Clipboard, %tmpfile%
 }
 
-get_text()
+select_all()
 {
+    Sleep 100
     SendInput ^a
     Sleep 100
+}
+
+get_text()
+{
+    select_all()
     SendInput ^c
     Sleep 100
 }
 
 send_text()
 {
-    Sleep 100
-    SendInput ^a
-    Sleep 100
+    select_all()
     SendInput ^v
     Sleep 100
 }
