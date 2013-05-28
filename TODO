@@ -38,5 +38,3 @@ works OK.
 ---------------------------
 Add in cancel functionality - we copied out of a window incorrectly,
 such as a whole excel worksheet, and wish to abort.
----------------------------
-Add in editor flags - eg to load editor w/o rc file, or with custom rc
