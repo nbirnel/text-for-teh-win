@@ -79,6 +79,10 @@ load_edit_configs(type)
     global title
     global proc
     dotext := "." . extension
+    Loop, %edit_dir%\tftw.%extension%
+    {
+        edit_flags = %edit_flags% %sourceflag% `"%A_LoopFileLongPath%`"
+    }
     type_dir = %edit_dir%\%type%\*
     Loop, %type_dir%
     {
