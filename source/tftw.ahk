@@ -4,6 +4,13 @@ edit_flags =
 
 #include functions.ahk
 
+Menu, TRAY, NoStandard
+Menu, TRAY, add, Text For Teh Win help, help
+Menu, TRAY, add,
+Menu, TRAY, add, Cancel next paste, aborter
+Menu, TRAY, add,
+Menu, TRAY, add, Exit, self_destruct
+
 tmpdir = %cfgdir%\tmp
 cfg = %cfgdir%\config.ini
 
@@ -185,7 +192,25 @@ return
 
 #+v:: abort = 1
 
-
 #z::
     ExitApp
 return
+
+self_destruct:
+ExitApp
+return
+
+aborter:
+abort = 1
+return
+
+help:
+helpmsg = 
+(
+Windows-v to edit current panel in your text editor.
+Windows-Shift-v to cancel pasting that text back to it's origin.
+Windows-z to close this application.
+)
+MsgBox %helpmsg%
+return
+
