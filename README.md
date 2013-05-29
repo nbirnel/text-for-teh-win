@@ -8,6 +8,7 @@ Edit text from any GUI object in Windows via a text editor
 
 Run tftw.exe.
 Hit Windows-v to edit the current panel in your chosen editor.
+Hit Windows-Shift-v to cancel a paste.
 Hit Windows-z to exit tftw.
 
 This currently has basic funcionality.

@@ -164,12 +164,17 @@ send_text()
 
     If edit_tmpfile(tmpfile) == 0
     {
-        read_tmpfile(tmpfile)
-        WinActivate ahk_id %target_wid%
-        WinWaitActive, ahk_id %target_wid%, ,3
-        if ErrorLevel
-            fail(1, "Couldn't activate target.")
-        send_text()
+        if abort
+            abort = 
+        else
+        {
+            read_tmpfile(tmpfile)
+            WinActivate ahk_id %target_wid%
+            WinWaitActive, ahk_id %target_wid%, ,3
+            if ErrorLevel
+                fail(1, "Couldn't activate target.")
+            send_text()
+        }
     }
     else fail(2, "Failed to edit tempfile, leaving target unchanged.")
 
@@ -177,6 +182,9 @@ send_text()
     ClipSaved = 
 
 return
+
+#+v:: abort = 1
+
 
 #z::
     ExitApp
