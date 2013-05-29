@@ -18,7 +18,8 @@ fail(err, msg)
 {
     global tmpfile
     global title
-    MsgBox, Error: %err% `nTempfile: %tmpfile%`nTarget: %title%`n%msg%
+    global edit_flags
+    MsgBox, Error: %err% `nEdit flags: %edit_flags% `nTempfile: %tmpfile%`nTarget: %title%`n%msg%
 }
 
 die(err, msg)
