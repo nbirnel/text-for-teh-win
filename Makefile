@@ -15,8 +15,10 @@ ${INSTALLER}.exe ::
 test :: 
 	cygstart ${PROG}.exe
 
-clean ::
+cleanall :: clean
 	rm -f ${PROG}.exe ${INSTALLER}.exe 
+
+clean ::
 	cd source/ && make clean
 
-.PHONY :: clean test install installer
+.PHONY :: clean cleanall test install installer
