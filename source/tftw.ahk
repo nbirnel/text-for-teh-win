@@ -74,6 +74,10 @@ global_editor_config()
         parse_ini("sourceflag", A_LoopReadLine)
         parse_ini("extension", A_LoopReadLine)
     }
+    Loop, %edit_dir%\tftw.%extension%
+    {
+        edit_flags = %edit_flags% %sourceflag% `"%A_LoopFileLongPath%`"
+    }
 }
 
 load_edit_configs(type)
@@ -85,10 +89,6 @@ load_edit_configs(type)
     global class
     global title
     global proc
-    Loop, %edit_dir%\tftw.%extension%
-    {
-        edit_flags = %edit_flags% %sourceflag% `"%A_LoopFileLongPath%`"
-    }
     dotext := "." . extension
     type_dir = %edit_dir%\%type%\*
     Loop, %type_dir%
