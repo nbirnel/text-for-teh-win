@@ -4,11 +4,20 @@ dest = %userprofile%\Desktop
 
 ;get command line flags (silent)
 
-;ask if OK, unless started with silent flag
-MsgBox, 1, Text-for-teh-win installer, Installing config files to %cfgdir%,`nand executable to %dest%\ttfw.exe
-IfMsgBox, Cancel
-    ExitApp, 6
 
+Gui, Add, Text, , Installing config files to %cfgdir%
+Gui, Add, Text, , and executable to %dest%\ttfw.exe
+Gui, Add, Button, default, &OK
+Gui, Add, Button,, &Cancel
+Gui, Add, Checkbox, vSelectInstall, Choose Installation &Directory?
+Gui, Show,,   Text-for-teh-win installer,
+
+
+ButtonCancel:
+ExitApp
+
+ButtonOK:
+Gui, Submit
 ;figure out if we are installing to 'portable' or normal
 
 ;copy config to dest
@@ -23,5 +32,4 @@ if ErrorLevel
 
 ;put up dumb "all done!" message unlesss started with silent flag
 MsgBox, Installed config files in %cfgdir%,`nand executable at %dest%\ttfw.exe
-
 
