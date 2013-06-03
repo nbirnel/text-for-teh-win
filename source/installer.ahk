@@ -8,7 +8,7 @@ Gui, Add, Text, , Installing config files to %cfgdir%
 Gui, Add, Text, , and executable to %dest%\ttfw.exe
 Gui, Add, Button, default, &OK
 Gui, Add, Button,, &Cancel
-Gui, Add, Checkbox, vSelectInstall, Override Installation &Directory?
+;Gui, Add, Checkbox, vSelectInstall, Override Installation &Directory?
 Gui, Show, ,   Text-for-teh-win installer,
 return
 
@@ -19,11 +19,12 @@ ButtonOK:
 Gui, Submit
 ;figure out if we are installing to 'portable' or normal
 
-if SelectInstall = 1
-{
-    FileSelectFolder, cfgdir, %A_UserProfile%, 3, Where would you like to install?
-    dest = %cfgdir%
-}
+; FIXME this works, but we need to update the program to use it
+;if SelectInstall = 1
+;{
+;    FileSelectFolder, cfgdir, %A_UserProfile%, 3, Where would you like to install?
+;    dest = %cfgdir%
+;}
 
 ;copy config to dest
 FileCopyDir, config, %cfgdir%, 1
