@@ -1,3 +1,6 @@
+; From:
+; http://vim.wikia.com/wiki/Use_gvim_as_an_external_editor_for_Windows_apps
+
 ; Documentation {{{1
 
 ; Name: vimedit
