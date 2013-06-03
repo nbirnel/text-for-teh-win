@@ -19,7 +19,12 @@ ButtonOK:
 Gui, Submit
 ;figure out if we are installing to 'portable' or normal
 
-MsgBox %SelectInstall%
+if SelectInstall = 1
+{
+    FileSelectFolder, cfgdir, %A_UserProfile%, 3, Where would you like to install?
+    dest = %cfgdir%
+}
+
 ;copy config to dest
 FileCopyDir, config, %cfgdir%, 1
 if ErrorLevel
