@@ -1,5 +1,5 @@
 PROG = tftw
-INSTALLER = installer
+INSTALLER = install
 CC = "$$PROGRAMFILES/Autohotkey/Compiler/Ahk2Exe.exe"
 
 ${PROG}.exe :: ${PROG}.ahk ${PROG}.ico
