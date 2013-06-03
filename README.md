@@ -23,3 +23,7 @@ A few samples have been provided for gvim.
 
 If you use emacs, be sure to use emacs.exe, not runemacs.exe.
 The editor needs to not return an exit status until you have quit.
+
+There is a 
+[home page](http://www.birnel.org/~noah/software/text-for-teh-win/index.html),
+where you can get an installer.
