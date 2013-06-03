@@ -1,43 +1,52 @@
 editor = %A_ProgramFiles%\Vim\vim73\gvim.exe
 edit_short = gvim
-edit_flags = 
 
 #include functions.ahk
+make_menu()
+initialize()
 
-Menu, TRAY, NoStandard
-Menu, TRAY, add, Text For Teh Win &help, help
-Menu, TRAY, add,
-Menu, TRAY, add, &Cancel next paste, aborter
-Menu, TRAY, add,
-Menu, TRAY, add, &Edit configuration, edit_config
-Menu, TRAY, add,
-Menu, TRAY, add, E&xit, self_destruct
-
-tmpdir = %cfgdir%\tmp
-cfg = %cfgdir%\config.ini
-
-make_dir(tmpdir)
-
-If FileExist(cfg)
-{
-    Loop, read, %cfg%
-    {
-        parse_ini("editor", A_LoopReadLine)
-        parse_ini("edit_short", A_LoopReadLine) 
-    }
+make_menu() {
+    Menu, TRAY, NoStandard
+    Menu, TRAY, add, Text For Teh Win &help, help
+    Menu, TRAY, add,
+    Menu, TRAY, add, &Cancel next paste, aborter
+    Menu, TRAY, add,
+    Menu, TRAY, add, &Reload configuration, reloader
+    Menu, TRAY, add, &Edit configuration, edit_config
+    Menu, TRAY, add,
+    Menu, TRAY, add, E&xit, self_destruct
 }
 
-edit_dir = %cfgdir%\editors\%edit_short%
-edit_dir_class = %edit_dir%\class
-edit_dir_proc = %edit_dir%\proc
-edit_dir_title = %edit_dir%\title
-sourceflagf = %edit_dir%\sourceflag.ini
-make_dir(edit_dir)
-make_dir(edit_dir_class)
-make_dir(edit_dir_proc)
-make_dir(edit_dir_title)
+initialize() {
+    global
+    edit_flags = 
 
-global_editor_config()
+    tmpdir = %cfgdir%\tmp
+    cfg = %cfgdir%\config.ini
+
+    make_dir(tmpdir)
+
+    If FileExist(cfg)
+    {
+        Loop, read, %cfg%
+        {
+            parse_ini("editor", A_LoopReadLine)
+            parse_ini("edit_short", A_LoopReadLine) 
+        }
+    }
+
+    edit_dir = %cfgdir%\editors\%edit_short%
+    edit_dir_class = %edit_dir%\class
+    edit_dir_proc = %edit_dir%\proc
+    edit_dir_title = %edit_dir%\title
+    sourceflagf = %edit_dir%\sourceflag.ini
+    make_dir(edit_dir)
+    make_dir(edit_dir_class)
+    make_dir(edit_dir_proc)
+    make_dir(edit_dir_title)
+
+    global_editor_config()
+}
 
 parse_ini(var, line)
 {
@@ -209,6 +218,10 @@ return
 
 edit_config:
 RunWait %editor% %edit_flags% %cfg%
+return
+
+reloader:
+reload
 return
 
 help:
