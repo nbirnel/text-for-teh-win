@@ -4,14 +4,13 @@ dest = %userprofile%\Desktop
 
 ;get command line flags (silent)
 
-
 Gui, Add, Text, , Installing config files to %cfgdir%
 Gui, Add, Text, , and executable to %dest%\ttfw.exe
 Gui, Add, Button, default, &OK
 Gui, Add, Button,, &Cancel
 Gui, Add, Checkbox, vSelectInstall, Choose Installation &Directory?
-Gui, Show,,   Text-for-teh-win installer,
-
+Gui, Show, ,   Text-for-teh-win installer,
+return
 
 ButtonCancel:
 ExitApp
