@@ -74,6 +74,7 @@ global_editor_config()
     Loop, read, %sourceflagf%
     {
         parse_ini("sourceflag", A_LoopReadLine)
+        parse_ini("edit_flags", A_LoopReadLine)
         parse_ini("extension", A_LoopReadLine)
     }
     Loop, %edit_dir%\tftw.%extension%
