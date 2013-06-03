@@ -1,4 +1,5 @@
 PROG = tftw
+LONG = text-for-teh-win
 INSTALLER = install
 
 install :: ${PROG}.exe ${INSTALLER}.exe
@@ -16,15 +17,19 @@ test ::
 	cygstart ${PROG}.exe
 
 cleanall :: clean
-	rm -f ${PROG}.exe ${INSTALLER}.exe 
+	rm -f ${PROG}.exe ${INSTALLER}.exe ${LONG}.zip
 
 clean ::
 	cd source/ && make clean
 
-.PHONY :: clean cleanall test install installer
-dist ::
-	zip -r textpad-eed-syntax.zip textpad/INSTALL.txt textpad/config \
-	textpad/screenshots textpad/install.exe textpad/src/*.syn
+dist :: ${LONG}.zip 
 
-push ::
-	scp textpad-eed-syntax.zip noah@www.birnel.org:~/birnel.org/birnel.org/~noah/software/textpad-eed-syntax
+${LONG}.zip :: ${PROG}.exe ${INSTALLER}.exe
+	cd .. && zip -r ${LONG}.zip ${LONG}/${PROG}.exe ${LONG}/${INSTALLER}.exe \
+		${LONG}/config/ ${LONG}/LICENSE && mv ${LONG}.zip ${LONG}/
+
+push :: ${LONG}.zip
+	scp $< noah@www.birnel.org:~/birnel.org/birnel.org/~noah/software/text-for-teh-win
+
+.PHONY :: clean cleanall test install installer dist push
+
