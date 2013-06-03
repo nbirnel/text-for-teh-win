@@ -5,11 +5,13 @@ edit_flags =
 #include functions.ahk
 
 Menu, TRAY, NoStandard
-Menu, TRAY, add, Text For Teh Win help, help
+Menu, TRAY, add, Text For Teh Win &help, help
 Menu, TRAY, add,
-Menu, TRAY, add, Cancel next paste, aborter
+Menu, TRAY, add, &Cancel next paste, aborter
 Menu, TRAY, add,
-Menu, TRAY, add, Exit, self_destruct
+Menu, TRAY, add, &Edit configuration, edit_config
+Menu, TRAY, add,
+Menu, TRAY, add, E&xit, self_destruct
 
 tmpdir = %cfgdir%\tmp
 cfg = %cfgdir%\config.ini
@@ -202,6 +204,10 @@ return
 
 aborter:
 abort = 1
+return
+
+edit_config:
+RunWait %editor% %edit_flags% %cfg%
 return
 
 help:
