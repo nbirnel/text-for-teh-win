@@ -8,7 +8,7 @@ Gui, Add, Text, , Installing config files to %cfgdir%
 Gui, Add, Text, , and executable to %dest%\ttfw.exe
 Gui, Add, Button, default, &OK
 Gui, Add, Button,, &Cancel
-Gui, Add, Checkbox, vSelectInstall, Choose Installation &Directory?
+Gui, Add, Checkbox, vSelectInstall, Override Installation &Directory?
 Gui, Show, ,   Text-for-teh-win installer,
 return
 
@@ -19,6 +19,7 @@ ButtonOK:
 Gui, Submit
 ;figure out if we are installing to 'portable' or normal
 
+MsgBox %SelectInstall%
 ;copy config to dest
 FileCopyDir, config, %cfgdir%, 1
 if ErrorLevel
@@ -31,4 +32,5 @@ if ErrorLevel
 
 ;put up dumb "all done!" message unlesss started with silent flag
 MsgBox, Installed config files in %cfgdir%,`nand executable at %dest%\ttfw.exe
+ExitApp
 
