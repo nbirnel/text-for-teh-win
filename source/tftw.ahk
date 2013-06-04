@@ -1,5 +1,5 @@
-editor = %A_ProgramFiles%\Vim\vim73\gvim.exe
-edit_short = gvim
+editor = %A_Windir%\system32\notepad.exe
+edit_short = np
 
 #include functions.ahk
 make_menu()
