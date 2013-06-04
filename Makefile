@@ -17,16 +17,25 @@ test ::
 	cygstart ${PROG}.exe
 
 cleanall :: clean
-	rm -f ${PROG}.exe ${INSTALLER}.exe ${LONG}.zip
+	rm -f ${PROG}.exe ${INSTALLER}.exe ${LONG}.zip README.txt
 
 clean ::
+	rm -f README.html
 	cd source/ && make clean
 
 dist :: ${LONG}.zip 
 
-${LONG}.zip :: ${PROG}.exe ${INSTALLER}.exe
-	cd .. && zip -r ${LONG}.zip ${LONG}/${PROG}.exe ${LONG}/${INSTALLER}.exe \
-		${LONG}/config/ ${LONG}/LICENSE && mv ${LONG}.zip ${LONG}/
+README.txt :: README.html
+	lynx -dump $< | u2d > $@
+
+README.html :: README.md
+	Markdown.pl $< > $@
+
+${LONG}.zip :: ${PROG}.exe ${INSTALLER}.exe README.txt
+	cd .. && \
+		zip -r ${LONG}.zip ${LONG}/${PROG}.exe ${LONG}/${INSTALLER}.exe \
+		${LONG}/config/ ${LONG}/LICENSE ${LONG}/README.txt \
+		&& mv ${LONG}.zip ${LONG}/ 
 
 push :: ${LONG}.zip
 	scp $< noah@www.birnel.org:~/birnel.org/birnel.org/~noah/software/text-for-teh-win
