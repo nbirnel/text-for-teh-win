@@ -1,1 +1,5 @@
 *.exe
+/README.html
+/README.txt
+/source/tftw.ico
+/text-for-teh-win.zip
