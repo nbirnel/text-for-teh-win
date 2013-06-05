@@ -16,6 +16,8 @@ make_menu() {
     Menu, TRAY, add,
     Menu, TRAY, add, &Edit configuration, edit_config
     Menu, TRAY, add, &Reload configuration, reloader
+;    Menu, TRAY, add, &Browse configurations, browse_config
+    Menu, TRAY, add, &Select configuration, select_config
     Menu, TRAY, add, Restore &default configuration, default_config
     Menu, TRAY, add,
     Menu, TRAY, add, E&xit, self_destruct
@@ -50,6 +52,14 @@ initialize() {
     make_dir(edit_dir_title)
 
     global_editor_config()
+}
+
+reloadme()
+{
+    reload
+    Sleep 1000 ; If successful, the reload will close this instance during the Sleep, so the line below will never be reached.
+    die(8, "Reload was unsuccessful after 1 second. I am crashing now.")
+    return  ; This should never happen
 }
 
 make_tmpfile()
@@ -212,6 +222,15 @@ aborter:
 abort = 1
 return
 
+browse_config:
+; FIXME this is just a stub
+return
+
+select_config:
+FileSelectFile, cfg, 3, %cfgdir%, "Select a new configuration", Ini Files(*.ini)
+reloadme()
+return
+
 edit_config:
 if backup_config() != 0
     return
@@ -228,9 +247,7 @@ if ErrorLevel
 ; Lack of return here is deliberate - we are falling through to reloader
 
 reloader:
-reload
-Sleep 1000 ; If successful, the reload will close this instance during the Sleep, so the line below will never be reached.
-die(8, "Reload was unsuccessful after 1 second. I am crashing now.")
+reloadme()
 return  ; This should never happen
 
 help:
