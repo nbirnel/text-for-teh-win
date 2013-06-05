@@ -252,14 +252,14 @@ RunWait %editor% %edit_flags% %cfg%
 reloadme()
 return
 
-; KEEP DEFAULT_CONFIG: AND RELOADER: TOGETHER; see next comment.
 default_config:
 if backup_config() != 0
     return
 FileCopy, %cfgdir%\default.ini, %cfg%, 1
 if ErrorLevel
     fail(7, "Couldn't restore default configuration")
-; Lack of return here is deliberate - we are falling through to reloader
+reloadme()
+return
 
 reloader:
 reloadme()
