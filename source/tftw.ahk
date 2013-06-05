@@ -121,6 +121,15 @@ local_editor_config()
     load_edit_configs("title")
 }
 
+backup_config()
+{
+    global cfgdir
+    global cfg
+    FormatTime, fmt_time, , yyyy-MM-dd-HH-mm-ss
+    FileCopy, %cfg%, %cfgdir%\config-%fmt_time%.ini, 1
+    return %ErrorLevel%
+}
+
 edit_tmpfile(tmpfile) 
 {
     global editor 
@@ -223,9 +232,14 @@ return
 
 ; KEEP DEFAULT_CONFIG: AND RELOADER: TOGETHER; see next comment.
 default_config:
+if backup_config() != 0
+{
+    fail(8, "Couldn't create backup configuration")
+    return
+}
 FileCopy, %cfgdir%\default.ini, %cfg%, 1
 if ErrorLevel
-    fail(7, "Couldn't restore backup configuration")
+    fail(7, "Couldn't restore default configuration")
 ; Lack of return here is deliberate - we are falling through to reloader
 
 reloader:
