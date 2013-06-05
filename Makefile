@@ -34,7 +34,7 @@ README.html :: README.md
 ${LONG}.zip :: ${PROG}.exe ${INSTALLER}.exe README.txt
 	cd .. && \
 		zip -r ${LONG}.zip ${LONG}/${PROG}.exe ${LONG}/${INSTALLER}.exe \
-		${LONG}/config/ ${LONG}/LICENSE ${LONG}/README.txt \
+		${LONG}/config/ ${LONG}/LICENSE ${LONG}/README.html ${LONG}/README.txt \
 		&& mv ${LONG}.zip ${LONG}/ 
 
 push :: ${LONG}.zip
