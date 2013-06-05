@@ -235,6 +235,7 @@ edit_config:
 if backup_config() != 0
     return
 RunWait %editor% %edit_flags% %cfg%
+reloadme()
 return
 
 ; KEEP DEFAULT_CONFIG: AND RELOADER: TOGETHER; see next comment.
