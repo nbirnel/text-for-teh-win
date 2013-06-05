@@ -14,8 +14,9 @@ make_menu() {
     Menu, TRAY, add,
     Menu, TRAY, add, &Cancel next paste, aborter
     Menu, TRAY, add,
-    Menu, TRAY, add, &Reload configuration, reloader
     Menu, TRAY, add, &Edit configuration, edit_config
+    Menu, TRAY, add, &Reload configuration, reloader
+    Menu, TRAY, add, Restore &default configuration, default_config
     Menu, TRAY, add,
     Menu, TRAY, add, E&xit, self_destruct
 }
@@ -219,6 +220,13 @@ return
 edit_config:
 RunWait %editor% %edit_flags% %cfg%
 return
+
+; KEEP DEFAULT_CONFIG: AND RELOADER: TOGETHER; see next comment.
+default_config:
+FileCopy, %cfgdir%\default.ini, %cfg%, 1
+if ErrorLevel
+    fail(7, "Couldn't restore backup configuration")
+; Lack of return here is deliberate - we are falling through to reloader
 
 reloader:
 reload
