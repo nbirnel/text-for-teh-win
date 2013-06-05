@@ -247,9 +247,8 @@ if ErrorLevel
 reloader:
 reload
 Sleep 1000 ; If successful, the reload will close this instance during the Sleep, so the line below will never be reached.
-MsgBox, 4,, The script could not be reloaded. Would you like to open it for editing?
-IfMsgBox, Yes, Edit
-return
+die(8, "Reload was unsuccessful after 1 second. I am crashing now.")
+return  ; This should never happen
 
 help:
 helpmsg = 
