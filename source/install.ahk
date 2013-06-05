@@ -26,6 +26,11 @@ Gui, Submit
 ;    dest = %cfgdir%
 ;}
 
+;prepare a default ini backup
+FileCopy, config/config.ini, config/default.ini, 1
+if ErrorLevel
+    die(6, "Failed to make default configuration")
+
 ;copy config to dest
 FileCopyDir, config, %cfgdir%, 1
 if ErrorLevel
