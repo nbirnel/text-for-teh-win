@@ -112,7 +112,7 @@ load_edit_configs(type)
     }
 }
 
-editor_config()
+local_editor_config()
 {
     global
     load_edit_configs("class")
@@ -179,7 +179,7 @@ send_text()
     get_text()
     tmpfile := make_tmpfile()
 
-    editor_config()
+    local_editor_config()
 
     If edit_tmpfile(tmpfile) == 0
     {
