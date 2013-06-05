@@ -1,5 +1,5 @@
 editor = %A_Windir%\system32\notepad.exe
-edit_short = np
+short_name = np
 edit_flags_base =
 sourceflag =
 extension =
@@ -32,17 +32,15 @@ initialize() {
 
     If FileExist(cfg)
     {
-        Loop, read, %cfg%
-        {
-            parse_ini("editor", A_LoopReadLine)
-            parse_ini("edit_short", A_LoopReadLine) 
-            parse_ini("sourceflag", A_LoopReadLine)
-            parse_ini("edit_flags_base", A_LoopReadLine)
-            parse_ini("extension", A_LoopReadLine)
-        }
+        IniRead, short_name, %cfg%, editor, short_name, %A_Space%
+
+        IniRead, editor,          %cfg%, editor_%short_name%, editor, %A_Space%
+        IniRead, sourceflag,      %cfg%, editor_%short_name%, sourceflag, %A_Space%
+        IniRead, edit_flags_base, %cfg%, editor_%short_name%, edit_flags_base, %A_Space%
+        IniRead, extension,       %cfg%, editor_%short_name%, extension, %A_Space%
     }
 
-    edit_dir = %cfgdir%\editors\%edit_short%
+    edit_dir = %cfgdir%\editors\%short_name%
     edit_dir_class = %edit_dir%\class
     edit_dir_proc = %edit_dir%\proc
     edit_dir_title = %edit_dir%\title
@@ -52,21 +50,6 @@ initialize() {
     make_dir(edit_dir_title)
 
     global_editor_config()
-}
-
-parse_ini(var, line)
-{
-    global
-    lenvar := StrLen(var)
-    i_eq  := lenvar+1
-    i_val := i_eq+1
-    vareq = %var%=
-
-    If (SubStr(line, 1, i_eq) = vareq) 
-    {
-        val := SubStr(line, i_val)
-        %var% = %val%
-    }
 }
 
 make_tmpfile()
