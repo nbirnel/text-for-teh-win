@@ -14,9 +14,11 @@ make_menu() {
     Menu, TRAY, add,
     Menu, TRAY, add, &Cancel next paste, aborter
     Menu, TRAY, add,
+    Menu, TRAY, add, Browse &temporary files, browse_tmpfiles
+    Menu, TRAY, add,
     Menu, TRAY, add, &Edit configuration, edit_config
     Menu, TRAY, add, &Reload configuration, reloader
-;    Menu, TRAY, add, &Browse configurations, browse_config
+    Menu, TRAY, add, &Browse configurations, browse_config
     Menu, TRAY, add, &Select configuration, select_config
     Menu, TRAY, add, Restore &default configuration, default_config
     Menu, TRAY, add,
@@ -222,8 +224,12 @@ aborter:
 abort = 1
 return
 
+browse_tmpfiles:
+Run, %tmpdir%
+return
+
 browse_config:
-; FIXME this is just a stub
+Run, %cfgdir%
 return
 
 select_config:
