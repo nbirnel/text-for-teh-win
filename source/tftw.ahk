@@ -233,7 +233,15 @@ Run, %cfgdir%
 return
 
 select_config:
-FileSelectFile, cfg, 3, %cfgdir%, "Select a new configuration", Ini Files(*.ini)
+;File and path must exist
+FileSelectFile, newcfg, 3, %cfgdir%, "Select a configuration", Ini Files(*.ini)
+if ErrorLevel
+    return
+if backup_config() != 0
+    return
+FileCopy, %newcfg%, %cfg%, 1
+if ErrorLevel
+    fail(8, "Couldn't switch onfiguration")
 reloadme()
 return
 
