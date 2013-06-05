@@ -41,10 +41,13 @@ initialize() {
         IniRead, editor,          %cfg%, editor_%short_name%, editor, %A_Space%
         IniRead, sourceflag,      %cfg%, editor_%short_name%, sourceflag, %A_Space%
         IniRead, flag_space,    %cfg%, editor_%short_name%, flag_nospace, %A_Space%
-        if not flag_space
-            flag_space = %A_Space%
         IniRead, edit_flags_base, %cfg%, editor_%short_name%, edit_flags_base, %A_Space%
         IniRead, extension,       %cfg%, editor_%short_name%, extension, %A_Space%
+        ; FIXME this is garbage
+        ;if not flag_space
+        ;    sourceflag = %sourceflag%%A_Space%
+        ;else
+        ;    sourceflag = %sourceflag%%flag_space%
     }
 
     edit_dir = %cfgdir%\editors\%short_name%
@@ -86,7 +89,7 @@ global_editor_config()
     global
     Loop, %edit_dir%\tftw.%extension%
     {
-        edit_flags_base = %edit_flags_base% %sourceflag%%flag_space%`"%A_LoopFileLongPath%`"
+        edit_flags_base = %edit_flags_base% %sourceflag% `"%A_LoopFileLongPath%`"
     }
 }
 
