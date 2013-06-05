@@ -1,5 +1,8 @@
 editor = %A_Windir%\system32\notepad.exe
 edit_short = np
+edit_flags_base =
+sourceflag =
+extension =
 
 #include functions.ahk
 make_menu()
@@ -32,6 +35,9 @@ initialize() {
         {
             parse_ini("editor", A_LoopReadLine)
             parse_ini("edit_short", A_LoopReadLine) 
+            parse_ini("sourceflag", A_LoopReadLine)
+            parse_ini("edit_flags_base", A_LoopReadLine)
+            parse_ini("extension", A_LoopReadLine)
         }
     }
 
@@ -39,7 +45,6 @@ initialize() {
     edit_dir_class = %edit_dir%\class
     edit_dir_proc = %edit_dir%\proc
     edit_dir_title = %edit_dir%\title
-    sourceflagf = %edit_dir%\sourceflag.ini
     make_dir(edit_dir)
     make_dir(edit_dir_class)
     make_dir(edit_dir_proc)
@@ -80,15 +85,9 @@ make_tmpfile()
 global_editor_config()
 {
     global
-    Loop, read, %sourceflagf%
-    {
-        parse_ini("sourceflag", A_LoopReadLine)
-        parse_ini("edit_flags", A_LoopReadLine)
-        parse_ini("extension", A_LoopReadLine)
-    }
     Loop, %edit_dir%\tftw.%extension%
     {
-        edit_flags = %edit_flags% %sourceflag% `"%A_LoopFileLongPath%`"
+        edit_flags_base = %edit_flags_base% %sourceflag% `"%A_LoopFileLongPath%`"
     }
 }
 
@@ -115,6 +114,7 @@ load_edit_configs(type)
 local_editor_config()
 {
     global
+    edit_flags = %edit_flags_base%
     load_edit_configs("class")
     load_edit_configs("proc")
     load_edit_configs("title")
