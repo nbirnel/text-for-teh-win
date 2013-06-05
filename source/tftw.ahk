@@ -127,7 +127,10 @@ backup_config()
     global cfg
     FormatTime, fmt_time, , yyyy-MM-dd-HH-mm-ss
     FileCopy, %cfg%, %cfgdir%\config-%fmt_time%.ini, 1
-    return %ErrorLevel%
+    err = %ErrorLevel%
+    if err != 0
+        fail(8, "Couldn't create backup configuration")
+    return %err%
 }
 
 edit_tmpfile(tmpfile) 
@@ -227,16 +230,15 @@ abort = 1
 return
 
 edit_config:
+if backup_config() != 0
+    return
 RunWait %editor% %edit_flags% %cfg%
 return
 
 ; KEEP DEFAULT_CONFIG: AND RELOADER: TOGETHER; see next comment.
 default_config:
 if backup_config() != 0
-{
-    fail(8, "Couldn't create backup configuration")
     return
-}
 FileCopy, %cfgdir%\default.ini, %cfg%, 1
 if ErrorLevel
     fail(7, "Couldn't restore default configuration")
