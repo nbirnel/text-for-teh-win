@@ -85,8 +85,14 @@ default_config()
 make_tmpfile()
 {
     global tmpdir
+    global title
+    global proc
+    global class
+    
+    filename_raw = %title%-%class%-%proc%
+    filename := legalize_filename(filename_raw)
     FormatTime, fmt_time, , yyyy-MM-dd-HH-mm-ss
-    tmpfile = %tmpdir%\%fmt_time%.txt
+    tmpfile = %tmpdir%\%filename%.txt
     ifExist, %tmpfile%
         FileDelete %tmpfile%         ;FIXME check for failure
     FileAppend, , %tmpfile%          ;Make an empty file
@@ -94,6 +100,12 @@ make_tmpfile()
     FileAppend, %Clipboard%, %tmpfile%
 
     return %tmpfile%
+}
+
+legalize_filename(fn)
+{
+    StringReplace, fn, fn, ", _, All
+    return RegExReplace(fn, "[ <>:/\\|?*_]+", "_")
 }
 
 global_editor_config()
