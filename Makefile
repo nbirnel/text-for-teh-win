@@ -20,7 +20,7 @@ cleanall :: clean
 	rm -f ${PROG}.exe ${INSTALLER}.exe ${LONG}.zip README.txt
 
 clean ::
-	rm -f README.html config/default.ini
+	rm -f README.html
 	cd source/ && make clean
 
 dist :: ${LONG}.zip 

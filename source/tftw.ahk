@@ -34,21 +34,21 @@ initialize() {
 
     make_dir(tmpdir)
 
-    If FileExist(cfg)
-    {
-        IniRead, short_name, %cfg%, editor, short_name, %A_Space%
+    If not FileExist(cfg)
+        default_config()
 
-        IniRead, editor,          %cfg%, editor_%short_name%, editor, %A_Space%
-        IniRead, sourceflag,      %cfg%, editor_%short_name%, sourceflag, %A_Space%
-        ;IniRead, flag_space,    %cfg%, editor_%short_name%, flag_nospace, %A_Space%
-        IniRead, edit_flags_base, %cfg%, editor_%short_name%, edit_flags_base, %A_Space%
-        IniRead, extension,       %cfg%, editor_%short_name%, extension, %A_Space%
-        ; FIXME this is garbage
-        ;if not flag_space
-        ;    sourceflag = %sourceflag%%A_Space%
-        ;else
-        ;    sourceflag = %sourceflag%%flag_space%
-    }
+    IniRead, short_name, %cfg%, editor, short_name, %A_Space%
+
+    IniRead, editor,          %cfg%, editor_%short_name%, editor, %A_Space%
+    IniRead, sourceflag,      %cfg%, editor_%short_name%, sourceflag, %A_Space%
+    ;IniRead, flag_space,    %cfg%, editor_%short_name%, flag_nospace, %A_Space%
+    IniRead, edit_flags_base, %cfg%, editor_%short_name%, edit_flags_base, %A_Space%
+    IniRead, extension,       %cfg%, editor_%short_name%, extension, %A_Space%
+    ; FIXME this is garbage
+    ;if not flag_space
+    ;    sourceflag = %sourceflag%%A_Space%
+    ;else
+    ;    sourceflag = %sourceflag%%flag_space%
 
     edit_dir = %cfgdir%\editors\%short_name%
     edit_dir_class = %edit_dir%\class
@@ -68,6 +68,18 @@ reloadme()
     Sleep 1000 ; If successful, the reload will close this instance during the Sleep, so the line below will never be reached.
     die(8, "Reload was unsuccessful after 1 second. I am crashing now.")
     return  ; This should never happen
+}
+
+default_config()
+{
+    global cfgdir
+    global cfg
+    if backup_config() != 0
+        return
+    FileCopy, %cfgdir%\default.ini, %cfg%, 1
+    if ErrorLevel
+        fail(7, "Couldn't restore default configuration")
+    reloadme()
 }
 
 make_tmpfile()
@@ -260,12 +272,7 @@ reloadme()
 return
 
 default_config:
-if backup_config() != 0
-    return
-FileCopy, %cfgdir%\default.ini, %cfg%, 1
-if ErrorLevel
-    fail(7, "Couldn't restore default configuration")
-reloadme()
+default_config()
 return
 
 reloader:
